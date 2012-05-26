@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <meta name="viewport" content="width=device-width, user-scalable=no" >
+    <meta name="apple-mobile-web-app-capable" content="yes" >
+    
+    <title>Polyhedral dice calculator</title>
+    <!-- <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
+    
+    <!-- <link rel="stylesheet" href="css/desktop.css" type="text/css" media="screen and (min-width: 481px)"> -->
+
+    <!-- <script src="https://trigger.io/catalyst/target/target-script-min.js#86CF7120-AB48-4F26-86F0-78C5092CDA0C"></script>
+    -->
+  </head>
+  <body>
+    <div class='calculator-wrapper'>
+    <div class='calculator'>
+       
+      <div class='screen input'>&nbsp;</div>
+      <div class='screen output'>&nbsp;</div>
+      <div class='buttons'>
+        <div class='button-panel digits'>
+          <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class='operator'>c</button>
+          </div>
+          <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class='operator'>+</button>
+          </div>
+          <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class='operator'>-</button>
+          </div>
+          <div>
+            <button class='die'>d</button>
+            <button>0</button>
+            <button class='button-wide operator roll'>roll</button>
+          </div>
+        </div>
+        
+        
+      </div>
+      
+      <div class='title'>polyhedral dice calculator <span class='reference'>by <a href='http://twitter.com/remcoder'>@remcoder</a></span>
+      </div> 
+    </div>
+  </div>
+    
+    
+    <script src="lib/jquery.js" type="text/javascript"></script>
+    <script src="lib/underscore.js" type="text/javascript"></script>
+    <script src="lib/jsparse.js" type="text/javascript"></script>
+    
+    <script src="js/parser.js" type="text/javascript"></script>
+    <script src="js/roller.js" type="text/javascript"></script>
+    <script src="js/userinput.js" type="text/javascript"></script>
+    
+    <!--
+    <script src="build/build.js" type="text/javascript"></script>
+    -->
+    <script src="test/unittestlib.js" type="text/javascript"></script>
+    <script src="test/parser.js" type="text/javascript"></script>
+    <script src="test/roller.js" type="text/javascript"></script>
+
+    
+    <script type="text/javascript">
+    
+      //$('button.roll')[0].innerHTML += '\u2682';
+      
+      var calc = new PolyDieCalc($('.calculator'));
+      
+      function isTouchDevice()
+      {
+         return $('button')[0].touchstart;
+      }
+      if (isTouchDevice())
+      $('.button-panel button').bind("touchstart", function (evt) { 
+        evt.preventDefault();
+          //alert(0);
+          calc.inputhandler($(this).text().substr(0,1).charCodeAt(0) );
+      });
+      else
+      {
+        $(document).keypress(function (evt) {
+          if (evt.which == 8) evt.preventDefault(); // prevent going back when pressing BACKSPACE
+          calc.inputhandler(evt.which);
+        });
+        
+        $('.button-panel button').click(function (evt) { 
+          calc.inputhandler($(this).text().substr(0,1).charCodeAt(0) ); 
+        });
+      }
+      
+    </script>
+  </body>
+</html>
