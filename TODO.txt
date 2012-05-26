@@ -1,0 +1,24 @@
+
+ISSUES
+- allow only valid input (make a new parser that allows partial die expressions)
+- disable interface when rolling dice
+- [IPHONE WEB] when bookmarked to the homescreen, it loads a stale version
+
+IMPROVEMENTS
+- show rolling die in output part of the screen, not in the input part.
+- choose a better calculator font.
+- shiny glass buttons ;-)
+
+NICE TO HAVE
+- show analysis in expanded view / landscape (responsive design FTW!)
+  - expected value
+  - minimum value
+  - maximum value
+  - plot of chance distribution
+
+- shake device to throw dice
+- graphical representation of the type of die thrown
+- splash screen using pixelfont
+
+OTHER THINGS
+- hook unittests into grunt
