@@ -1,5 +1,4 @@
-function Die(s)
-{
+Die = function (s) {
   this.ast = DieExprParser(s);
 }
 
