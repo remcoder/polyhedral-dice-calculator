@@ -2,8 +2,9 @@
 // the entire section is optional.
 App.info({
   id: 'nl.remcoder.polyhedral-dice-calculator',
-  name: 'PolyCalc',
+  name: 'RPG Dice Calculator',
   description: 'Roll n-sided dice',
+  version: '1.0.0'
   //author: 'Remco Veldkamp',
   //email: 'remcoder@gmail.com',
   //website: 'http://example.com'
