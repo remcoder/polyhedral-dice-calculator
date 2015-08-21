@@ -61,3 +61,16 @@ Template.calculator.events({
     }
   }
 });
+
+
+Meteor.startup(function() {
+  console.log('startup');
+  $('.calculator-wrapper').css({opacity:1});
+  if (Meteor.isCordova)
+    navigator.splashscreen.hide();
+
+  intro();
+
+});
+
+
