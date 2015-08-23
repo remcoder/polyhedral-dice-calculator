@@ -21,10 +21,6 @@ function roll() {
     Session.set('output', 'ERROR');
     return;
   }
-  //for(var i=0 ; i<6 ; i++)
-  //  (function () {
-  //    delayedOutput(randomDie(), i*80);
-  //  }(i));
 
   delayedOutput(d.Roll(), 6 * 80);
 }
@@ -39,16 +35,6 @@ function delayedOutput(value, delay) {
     Session.set('output', value );
   }, delay);
 }
-
-
-Template.calculator.helpers({
-  input : function() {
-    return Session.get('input') + '_';
-  },
-  output : function() {
-    return Session.get('output');
-  }
-});
 
 Template.calculator.events({
   'click .button-panel button' : function(evt) {
