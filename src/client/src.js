@@ -82,11 +82,12 @@ Tracker.autorun(function() {
   if (!displayReady.get()) return;
 
   //console.log('printing');
-  lcd.clear();
+
+  var result = [];
   var input = Session.get('input');
   if (input) {
     if (typeof input == 'string')
-      lcd.print(input);
+      result.push(input);
   }
 
   var output = Session.get('output');
@@ -94,10 +95,10 @@ Tracker.autorun(function() {
     if (typeof output == 'number')
       output = output.toString();
 
-    if (typeof output == 'string') {
-      lcd.setCursor(2, 0);
-      lcd.print(output);
-    }
+    if (typeof output == 'string')
+      result.push(output);
+
   }
-  lcd.drawCursor();
+
+  lcd.setText(result);
 });

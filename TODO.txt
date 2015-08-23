@@ -4,7 +4,8 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] choose a better calculator font. a thin one
 - [DONE] input / output
 - [DONE] cursor
-- line wrapping
+- [DONE] line wrapping
+- autoscroll
 - splash screen
 
 ISSUES
