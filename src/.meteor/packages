@@ -5,7 +5,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-msavin:jetsetter
 underscore
-
 remcoder:fix-back-button-android
+meteortypescript:compiler
+meteortypescript:typescript-libs
+reactive-var

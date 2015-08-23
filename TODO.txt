@@ -1,10 +1,18 @@
 
+NEW DISPLAY: true matrix LCD display
+- [DONE] basic character rendering
+- [DONE] choose a better calculator font. a thin one
+- [DONE] input / output
+- [DONE] cursor
+- line wrapping
+- splash screen
+
 ISSUES
-- allow only valid input / handle invalid syntax
+- [PARTIALLY DONE] handle invalid syntax
 - disable interface when rolling dice
 
 IMPROVEMENTS
-- choose a better calculator font.
+- decrease shadow when the button is pressed
 - shiny glass buttons? ;-)
 
 NICE TO HAVE
@@ -15,4 +23,3 @@ NICE TO HAVE
   - plot of chance distribution
 
 - shake device to throw dice
-- splash screen using pixelfont

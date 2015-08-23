@@ -714,6 +714,7 @@ Pxxl.Font.prototype = {
     {
      var chr = text.charCodeAt(t);
      var glyph = this.glyphs[chr];
+     if (!glyph) throw new Error('Glyph not found for \'' + text[t] + '\'[' + chr + ']');
 
      var bitmap = glyph.bitmap;
      var dx = t * hspacing;

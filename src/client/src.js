@@ -1,5 +1,8 @@
 Session.setDefault('input', '');
 
+var displayReady = new ReactiveVar(false);
+var lcd;
+
 function roll() {
   var input = Session.get('input');
 
@@ -11,11 +14,17 @@ function roll() {
     return;
   }
 
-  var d = new Die(input.replace(/ /g, ''));
-  for(var i=0 ; i<6 ; i++)
-    (function () {
-      delayedOutput(randomDie(), i*80);
-    }(i));
+  try {
+    var d = new Die(input.replace(/ /g, ''));
+  }
+  catch (e) {
+    Session.set('output', 'ERROR');
+    return;
+  }
+  //for(var i=0 ; i<6 ; i++)
+  //  (function () {
+  //    delayedOutput(randomDie(), i*80);
+  //  }(i));
 
   delayedOutput(d.Roll(), 6 * 80);
 }
@@ -69,8 +78,29 @@ Meteor.startup(function() {
   if (Meteor.isCordova)
     navigator.splashscreen.hide();
 
-  intro();
+  //intro();
+  var ctx = $('canvas')[0].getContext('2d');
+  var matrix = new Matrix(ctx, 3, 0);
 
+  Pxxl.LoadFont('/fonts/gohufont/gohufont-11.bdf', function(font) {
+    console.log('font loaded');
+    lcd = new Lcd(matrix, font);
+
+    displayReady.set(true);
+  });
 });
 
 
+Tracker.autorun(function() {
+  if (!displayReady.get()) return;
+
+  //console.log('printing');
+  lcd.clear();
+  lcd.print(Session.get('input'));
+  var output = Session.get('output') + '';
+  if (output) {
+    lcd.setCursor(2, 0);
+    lcd.print(output);
+  }
+  lcd.drawCursor();
+});
