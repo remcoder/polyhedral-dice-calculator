@@ -39,6 +39,7 @@ class Lcd {
     var pixels = this.font.getPixels(c);
     for(var p=0 ; p<pixels.length ; p++) {
       var pixel = pixels[p];
+      if (c == '-') pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
       var dx = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
       var dy = this.cursor.row * 11;
       this.matrix.drawPixel(dx + pixel.x, dy + pixel.y)
