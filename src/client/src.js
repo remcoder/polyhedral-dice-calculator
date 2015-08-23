@@ -1,4 +1,5 @@
 Session.setDefault('input', '');
+Session.setDefault('output', '');
 
 var displayReady = new ReactiveVar(false);
 var lcd;
@@ -10,7 +11,7 @@ function roll() {
     try {
       var result = eval(input);
     } catch(e)  { result = '';}
-    Session.set('output', result);
+    Session.set('output', result + '');
     return;
   }
 
@@ -32,7 +33,7 @@ function randomDie() {
 
 function delayedOutput(value, delay) {
   Meteor.setTimeout(function() {
-    Session.set('output', value );
+    Session.set('output', value.toString() );
   }, delay);
 }
 
@@ -82,11 +83,21 @@ Tracker.autorun(function() {
 
   //console.log('printing');
   lcd.clear();
-  lcd.print(Session.get('input'));
-  var output = Session.get('output') + '';
+  var input = Session.get('input');
+  if (input) {
+    if (typeof input == 'string')
+      lcd.print(input);
+  }
+
+  var output = Session.get('output');
   if (output) {
-    lcd.setCursor(2, 0);
-    lcd.print(output);
+    if (typeof output == 'number')
+      output = output.toString();
+
+    if (typeof output == 'string') {
+      lcd.setCursor(2, 0);
+      lcd.print(output);
+    }
   }
   lcd.drawCursor();
 });
