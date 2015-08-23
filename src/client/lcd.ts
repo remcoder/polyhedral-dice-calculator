@@ -7,8 +7,9 @@ class Lcd {
   private columns : number;
 
   constructor(public matrix : Matrix, public font) {
-    this.columns = this.matrix.width / 8;
-    this.rows = this.matrix.height / 8;
+    this.columns = Math.floor(this.matrix.width / 6);
+    this.rows = Math.floor(this.matrix.height / 11);
+    console.log('lcd', this.columns, this.rows)
     this.setCursor(0,0);
   }
 
@@ -35,6 +36,11 @@ class Lcd {
     this.matrix.fillRect(x,y+3,6,8);
   }
 
+  public lineFeed() {
+    this.cursor.column = 0;
+    this.cursor.row++;
+  }
+
   private _printChar(c) {
     var pixels = this.font.getPixels(c);
     for(var p=0 ; p<pixels.length ; p++) {
@@ -46,6 +52,9 @@ class Lcd {
     }
 
     this.cursor.column++;
+    if (this.cursor.column == this.columns) {
+      this.lineFeed();
+    }
   }
 
 
