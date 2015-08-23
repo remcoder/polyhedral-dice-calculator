@@ -5,7 +5,7 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] input / output
 - [DONE] cursor
 - [DONE] line wrapping
-- autoscroll
+- [DONE] autoscroll
 - splash screen
 
 ISSUES

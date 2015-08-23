@@ -42,6 +42,7 @@ class Lcd {
   }
 
   public setText(lines) {
+
     // split long lines
     for(var l=lines.length-1 ; l>=0 ; l--) {
       var line = lines[l];
@@ -57,15 +58,21 @@ class Lcd {
       }
     }
 
-    // take last 4 lines only
-    lines = lines.slice(-3);
+    // take last lines only
+    var lastLine = lines[lines.length-1];
+    if (lastLine) {
+      if (lastLine.length == this.columns)
+        lines = lines.slice(-2);
+      else
+        lines = lines.slice(-3);
+    }
 
     // print
     this.clear();
     for(var l=0 ; l<lines.length ; l++) {
       this.print(lines[l]);
 
-      if (l<lines.length-1)
+      if (l<lines.length-1 && this.cursor.column > 0)
         this.lineFeed();
     }
 
@@ -83,9 +90,9 @@ class Lcd {
     }
 
     this.cursor.column++;
-    //if (this.cursor.column == this.columns) {
-    //  this.lineFeed();
-    //}
+    if (this.cursor.column == this.columns) {
+      this.lineFeed();
+    }
   }
 
 
