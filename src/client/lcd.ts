@@ -43,6 +43,7 @@ class Lcd {
 
   public setText(lines) {
 
+
     // split long lines
     for(var l=lines.length-1 ; l>=0 ; l--) {
       var line = lines[l];
@@ -58,14 +59,14 @@ class Lcd {
       }
     }
 
-    // take last lines only
-    var lastLine = lines[lines.length-1];
-    if (lastLine) {
-      if (lastLine.length == this.columns)
-        lines = lines.slice(-2);
-      else
-        lines = lines.slice(-3);
-    }
+    //// take last lines only
+    //var lastLine = lines[lines.length-1];
+    //if (lastLine) {
+    //  if (lastLine.length == this.columns)
+    //    lines = lines.slice(-2);
+    //  else
+    //    lines = lines.slice(-3);
+    //}
 
     // print
     this.clear();
@@ -76,14 +77,18 @@ class Lcd {
         this.lineFeed();
     }
 
+
     this.drawCursor();
   }
+
 
   private _printChar(c) {
     var pixels = this.font.getPixels(c);
     for(var p=0 ; p<pixels.length ; p++) {
       var pixel = pixels[p];
-      if (c == '-') pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
+      if (c == '-' ) pixel.y-=3; // HACK: BBoy is not supported by Pxxl.js 0.4
+      if (c == '=' ) pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
+      if (c == '+' ) pixel.y-=1; // HACK: BBoy is not supported by Pxxl.js 0.4
       var dx = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
       var dy = this.cursor.row * 11;
       this.matrix.drawPixel(dx + pixel.x, dy + pixel.y)
