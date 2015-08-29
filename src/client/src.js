@@ -3,6 +3,7 @@ Session.setDefault('output', '');
 
 var displayReady = new ReactiveVar(false);
 var lcd;
+var maxInputLength; // calculated dynamically: depends on size of canvas, size of matrix pixels, size of bitmap font
 
 function roll() {
   var input = Session.get('input');
@@ -49,12 +50,7 @@ Template.calculator.events({
     // take first letter.
     var button = el.innerText.trim()[0].toLocaleLowerCase();
 
-    if ("d0123456789+-".indexOf(button) > -1)
-      Session.set('input', Session.get('input') + button );
-    else if (button == 'c') {
-      Session.set('input', '');
-      Session.set('output', '');
-    }
+    pressButton(button);
   }
 });
 
@@ -72,11 +68,33 @@ Meteor.startup(function() {
   Pxxl.LoadFont('/fonts/gohufont/gohufont-11.bdf', function(font) {
     console.log('font loaded');
     lcd = new Lcd(matrix, font);
-
+    maxInputLength = (lcd.rows - 1) * lcd.columns;
+    console.log('maxInputLength', maxInputLength);
     displayReady.set(true);
+  });
+
+  $(document).on('keydown', function(evt) {
+    var button = String.fromCharCode(evt.which);
+    console.log(button);
+
+    // HACK
+    if (button == '»') button = '+';
+    if (button == '½') button = '-';
+
+    pressButton(button.toLowerCase());
   });
 });
 
+
+function pressButton(button) {
+  var input = Session.get('input');
+  if ("d0123456789+-".indexOf(button) > -1 && input.length < maxInputLength)
+    Session.set('input', input + button );
+  else if (button == 'c') {
+    Session.set('input', '');
+    Session.set('output', '');
+  }
+}
 
 Tracker.autorun(function() {
   if (!displayReady.get()) return;
@@ -87,8 +105,9 @@ Tracker.autorun(function() {
     lcd.printText([input]); //.replace(/\+/g, ' + ').replace(/-/g, ' - '));
   }
 
+  if (input.length < maxInputLength)
+    lcd.drawCursor();
 
-  lcd.drawCursor();
   lcd.lineFeed();
 
   var output = Session.get('output');
