@@ -7,7 +7,7 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] line wrapping
 - [DONE] remove autoscroll
 - [DONE] never draw cursor on the output line
-- implement hard input limit
+- [DONE] implement hard input limit
 - splash screen
 -
 

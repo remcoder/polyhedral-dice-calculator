@@ -68,7 +68,7 @@ Meteor.startup(function() {
   Pxxl.LoadFont('/fonts/gohufont/gohufont-11.bdf', function(font) {
     console.log('font loaded');
     lcd = new Lcd(matrix, font);
-    maxInputLength = (lcd.rows - 1) * lcd.columns;
+    maxInputLength = (lcd.rows - 1) * lcd.columns - 1;
     console.log('maxInputLength', maxInputLength);
     displayReady.set(true);
   });
@@ -100,14 +100,11 @@ Tracker.autorun(function() {
   if (!displayReady.get()) return;
 
   var input = Session.get('input');
-  if (typeof input == 'string') {
-
+  if (typeof input == 'string')
     lcd.printText([input]); //.replace(/\+/g, ' + ').replace(/-/g, ' - '));
-  }
 
-  if (input.length < maxInputLength)
-    lcd.drawCursor();
 
+  lcd.drawCursor();
   lcd.lineFeed();
 
   var output = Session.get('output');
