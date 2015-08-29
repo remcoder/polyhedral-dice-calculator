@@ -5,8 +5,11 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] input / output
 - [DONE] cursor
 - [DONE] line wrapping
-- [DONE] autoscroll
+- [DONE] remove autoscroll
+- [DONE] never draw cursor on the output line
+- implement hard input limit
 - splash screen
+-
 
 ISSUES
 - [PARTIALLY DONE] handle invalid syntax
@@ -17,10 +20,13 @@ IMPROVEMENTS
 - shiny glass buttons? ;-)
 
 NICE TO HAVE
-- show analysis in expanded view / landscape (responsive design FTW!)
+- backspace button
+- show analysis. requires button
   - expected value
   - minimum value
   - maximum value
   - plot of chance distribution
+- MULTIPLICATION and DIVISION operators
 
+DUNNO
 - shake device to throw dice

@@ -41,9 +41,25 @@ class Lcd {
     this.cursor.row++;
   }
 
-  public setText(lines) {
+  public printText(lines) {
 
 
+    this._wrap(lines);
+
+
+    // print
+    this.clear();
+    for(var l=0 ; l<lines.length ; l++) {
+      this.print(lines[l]);
+
+      if (l<lines.length-1 && this.cursor.column > 0)
+        this.lineFeed();
+      //if (l==lines.length-1 && this.cursor.column > 0)
+    }
+
+  }
+
+  private _wrap(lines) {
     // split long lines
     for(var l=lines.length-1 ; l>=0 ; l--) {
       var line = lines[l];
@@ -58,29 +74,7 @@ class Lcd {
         }
       }
     }
-
-    //// take last lines only
-    //var lastLine = lines[lines.length-1];
-    //if (lastLine) {
-    //  if (lastLine.length == this.columns)
-    //    lines = lines.slice(-2);
-    //  else
-    //    lines = lines.slice(-3);
-    //}
-
-    // print
-    this.clear();
-    for(var l=0 ; l<lines.length ; l++) {
-      this.print(lines[l]);
-
-      if (l<lines.length-1 && this.cursor.column > 0)
-        this.lineFeed();
-    }
-
-
-    this.drawCursor();
   }
-
 
   private _printChar(c) {
     var pixels = this.font.getPixels(c);

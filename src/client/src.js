@@ -81,14 +81,15 @@ Meteor.startup(function() {
 Tracker.autorun(function() {
   if (!displayReady.get()) return;
 
-  //console.log('printing');
-
-  var result = [];
   var input = Session.get('input');
-  if (input) {
-    if (typeof input == 'string')
-      result.push(input);
+  if (typeof input == 'string') {
+
+    lcd.printText([input]); //.replace(/\+/g, ' + ').replace(/-/g, ' - '));
   }
+
+
+  lcd.drawCursor();
+  lcd.lineFeed();
 
   var output = Session.get('output');
   if (output) {
@@ -96,9 +97,8 @@ Tracker.autorun(function() {
       output = output.toString();
 
     if (typeof output == 'string')
-      result.push(output);
-
+      lcd.print([' => ' + output]);
   }
 
-  lcd.setText(result);
 });
+
