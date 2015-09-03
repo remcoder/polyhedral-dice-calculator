@@ -25,6 +25,7 @@ function roll() {
   }
 
   Session.set('rolling', true);
+  Session.set('output', null);
   delayedOutput(d.Roll(), 6 * 80);
 }
 

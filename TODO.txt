@@ -9,6 +9,7 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] never draw cursor on the output line
 - [DONE] implement hard input limit
 - [DONE] hide cursur when rolling
+- [DONE] clear output when rolling
 - splash screen
 
 ISSUES
