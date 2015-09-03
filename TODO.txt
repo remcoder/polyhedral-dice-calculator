@@ -8,15 +8,17 @@ NEW DISPLAY: true matrix LCD display
 - [DONE] remove autoscroll
 - [DONE] never draw cursor on the output line
 - [DONE] implement hard input limit
+- [DONE] hide cursur when rolling
 - splash screen
--
 
 ISSUES
+- [DONE] prevent roll when there is no input (would cause 'undefined' output)
 - [PARTIALLY DONE] handle invalid syntax
 - disable interface when rolling dice
 
 IMPROVEMENTS
 - decrease shadow when the button is pressed
+- new 90s 'computer' font for the logo / app name (a font like the 255 computer car)
 - shiny glass buttons? ;-)
 
 NICE TO HAVE

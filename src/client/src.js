@@ -24,11 +24,13 @@ function roll() {
     return;
   }
 
+  Session.set('rolling', true);
   delayedOutput(d.Roll(), 6 * 80);
 }
 
 function delayedOutput(value, delay) {
   Meteor.setTimeout(function() {
+    Session.set('rolling', false);
     Session.set('output', value.toString() );
   }, delay);
 }
@@ -38,7 +40,7 @@ Template.calculator.events({
     var el = evt.currentTarget;
     var action = el.getAttribute('data-action');
 
-    if (action && action == 'roll')
+    if (action && action == 'roll' && Session.get('input') && Session.get('input').length )
       return roll();
 
 
@@ -99,7 +101,8 @@ Tracker.autorun(function() {
     lcd.printText([input]); //.replace(/\+/g, ' + ').replace(/-/g, ' - '));
 
 
-  lcd.drawCursor();
+  if (!Session.get('rolling'))
+    lcd.drawCursor();
   lcd.lineFeed();
 
   var output = Session.get('output');
