@@ -27,11 +27,6 @@ function roll() {
   delayedOutput(d.Roll(), 6 * 80);
 }
 
-var dice = '⚀⚁⚂⚃⚄⚅';
-function randomDie() {
-  return dice[Math.floor(Math.random() * 6)];
-}
-
 function delayedOutput(value, delay) {
   Meteor.setTimeout(function() {
     Session.set('output', value.toString() );
