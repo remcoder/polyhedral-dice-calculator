@@ -14,7 +14,7 @@ NEW DISPLAY: true matrix LCD display
 ISSUES
 - [DONE] prevent roll when there is no input (would cause 'undefined' output)
 - [PARTIALLY DONE] handle invalid syntax
-- disable interface when rolling dice
+- [DONE] disable input when rolling dice
 
 IMPROVEMENTS
 - decrease shadow when the button is pressed

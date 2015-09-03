@@ -37,6 +37,8 @@ function delayedOutput(value, delay) {
 
 Template.calculator.events({
   'click .button-panel button' : function(evt) {
+    if (Session.get('rolling')) return;
+
     var el = evt.currentTarget;
     var action = el.getAttribute('data-action');
 
@@ -71,6 +73,8 @@ Meteor.startup(function() {
   });
 
   $(document).on('keydown', function(evt) {
+    if (Session.get('rolling')) return;
+
     var button = String.fromCharCode(evt.which);
     console.log(button);
 
