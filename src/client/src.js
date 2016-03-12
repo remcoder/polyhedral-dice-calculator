@@ -115,8 +115,10 @@ Tracker.autorun(function() {
     if (typeof output == 'number')
       output = output.toString();
 
-    if (typeof output == 'string')
-      lcd.print([' => ' + output]);
+    if (typeof output == 'string') {
+      lcd.lineFeed();
+      lcd.print(['>> ' + output]);
+    }
   }
 
 });
