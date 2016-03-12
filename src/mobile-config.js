@@ -4,10 +4,9 @@ App.info({
   id: 'nl.remcoder.polyhedral-dice-calculator',
   name: 'RPG Dice Calculator',
   description: 'Roll n-sided dice',
-  version: '1.0.0'
-  //author: 'Remco Veldkamp',
-  //email: 'remcoder@gmail.com',
-  //website: 'http://example.com'
+  version: '1.1.0',
+  author: 'Remco Veldkamp',
+  email: 'remcoder@gmail.com'
 });
 
 // Set up resources such as icons and launch screens.

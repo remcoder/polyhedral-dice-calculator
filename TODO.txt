@@ -3,3 +3,5 @@ use css preprocessor to fix browser prefixes
 make ui adapt to slightly different aspect ratios
 make ui stretch to different resolutions (ie Nexus 7)
 make ui responsive to deal with landscape orientation
+
+see if deployments can be made easier with pm2-meteor or similar

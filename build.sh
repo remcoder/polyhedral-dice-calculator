@@ -4,7 +4,7 @@ echo "Did you change the version?"
 read -n1 -r -p "Press any key to continue..."
 
 pushd src
-meteor build ../build --server rpg-dice-calculator.meteor.com:80
+meteor build ../build --server 50.97.67.193:17467
 
 popd
 
