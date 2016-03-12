@@ -1,0 +1,7 @@
+ * new display based on a LCD simulation
+ * prevent roll when there is no input (would cause 'undefined' output)
+ * disable input when rolling dice
+ * make ui fill screen and prevent scrolling
+ * handle invalid syntax (partial fix)
+ * tweak button shadow / pressed state
+ * some small ui tweaks
