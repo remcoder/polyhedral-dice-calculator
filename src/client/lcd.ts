@@ -1,14 +1,17 @@
 /// <reference path="../typescript/package_defs/all-definitions.d.ts" />
 /// <reference path="matrix.ts" />
 
+var COLUMNWIDTH = 7;
+var ROWHEIGHT = 11;
+
 class Lcd {
   private cursor : { row:number, column: number };
   private rows : number;
   private columns : number;
 
   constructor(public matrix : Matrix, public font) {
-    this.columns = Math.floor(this.matrix.width / 6);
-    this.rows = Math.floor(this.matrix.height / 11);
+    this.columns = Math.floor(this.matrix.width / COLUMNWIDTH);
+    this.rows = Math.floor(this.matrix.height / ROWHEIGHT);
     console.log('lcd', this.columns, this.rows);
     this.setCursor(0,0);
   }
@@ -31,14 +34,14 @@ class Lcd {
   }
 
   public drawCursor() {
-    var x = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-    var y = this.cursor.row * 11;
+    var x = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+    var y = this.cursor.row * ROWHEIGHT;
     this.matrix.fillRect(x,y,6,9);
   }
 
     public clearCursor() {
-        var x = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-        var y = this.cursor.row * 11;
+        var x = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+        var y = this.cursor.row * ROWHEIGHT;
         this.matrix.clearRect(x,y,6,9);
     }
 
@@ -95,8 +98,8 @@ class Lcd {
       if (c == '-' ) pixel.y-=3; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '=' ) pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '+' ) pixel.y-=1; // HACK: BBoy is not supported by Pxxl.js 0.4
-      var dx = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-      var dy = this.cursor.row * 11 - 3;
+      var dx = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+      var dy = this.cursor.row * ROWHEIGHT - 3;
       this.matrix.drawPixel(dx + pixel.x, dy + pixel.y)
     }
 
