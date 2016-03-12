@@ -122,8 +122,9 @@ button {
     color: white;
 
     border-radius: 10px;
-    -webkit-box-shadow: #000 2px 2px 4px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 1px 1px 2px;
     display: inline-block;
+    border: 1px solid transparent;
 }
 
 button:focus, button:active {
@@ -131,7 +132,9 @@ button:focus, button:active {
 }
 
 button:active {
-    transform: translateY(2px);
+  transform: translateY(1px);
+  -webkit-box-shadow: none;
+  border: 1px solid #333;
 }
 
 button.button-wide {
