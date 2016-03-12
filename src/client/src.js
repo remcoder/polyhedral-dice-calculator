@@ -127,7 +127,7 @@ Tracker.autorun(function() {
       output = output.toString();
 
     if (typeof output == 'string') {
-      lcd.lineFeed();
+      if (lcd.cursor.row == 1) lcd.lineFeed();
       lcd.print(['>> ' + output]);
     }
   }
