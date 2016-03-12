@@ -34,14 +34,14 @@ class Lcd {
   }
 
   public drawCursor() {
-    var x = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-    var y = this.cursor.row * ROWHEIGHT;
+    var x = this.cursor.column * COLUMNWIDTH + 3; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+    var y = this.cursor.row * ROWHEIGHT + 4;
     this.matrix.fillRect(x,y,6,9);
   }
 
     public clearCursor() {
-        var x = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-        var y = this.cursor.row * ROWHEIGHT;
+        var x = this.cursor.column * COLUMNWIDTH + 3; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+        var y = this.cursor.row * ROWHEIGHT + 4;
         this.matrix.clearRect(x,y,6,9);
     }
 
@@ -98,8 +98,8 @@ class Lcd {
       if (c == '-' ) pixel.y-=3; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '=' ) pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '+' ) pixel.y-=1; // HACK: BBoy is not supported by Pxxl.js 0.4
-      var dx = this.cursor.column * COLUMNWIDTH; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
-      var dy = this.cursor.row * ROWHEIGHT - 3;
+      var dx = this.cursor.column * COLUMNWIDTH + 3; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+      var dy = this.cursor.row * ROWHEIGHT + 1;
       this.matrix.drawPixel(dx + pixel.x, dy + pixel.y)
     }
 
