@@ -20,8 +20,7 @@
 
 
 class Matrix {
-  public color : string = 'rgba(0,0,0,0.6)';
-  public bgColor : string = 'rgba(0,0,0,0.03)';
+  public color : string = 'rgba(0,0,0,0.9)';
   public width : number;
   public height : number;
   public devicePixelRatio : number;
@@ -45,11 +44,6 @@ class Matrix {
 
   public clear() {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    this.ctx.fillStyle = this.bgColor;
-
-    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-
-    this.ctx.fillStyle = this.color;
   }
 
   public drawPixel(x: number, y: number) {
