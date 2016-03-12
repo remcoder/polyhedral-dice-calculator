@@ -57,6 +57,13 @@ class Matrix {
         h * this.pixelSize * this.devicePixelRatio);
   }
 
+   public clearRect(x: number, y: number, w: number, h:number) {
+     this.ctx.clearRect(x * (this.pixelSize+this.pixelOffset) * this.devicePixelRatio,
+        y * (this.pixelSize+this.pixelOffset) * this.devicePixelRatio,
+        w * this.pixelSize * this.devicePixelRatio,
+        h * this.pixelSize * this.devicePixelRatio);
+   }
+
 }
 
 this.Matrix = Matrix;

@@ -18,11 +18,12 @@ ISSUES
 - [DONE] disable input when rolling dice
 
 IMPROVEMENTS
-- decrease shadow when the button is pressed
+- [DONE] tweak button shadow / pressed state
 - new 90s 'computer' font for the logo / app name (a font like the 255 computer car)
 - shiny glass buttons? ;-)
 
 NICE TO HAVE
+- splash screen
 - backspace button
 - show analysis. requires button
   - expected value

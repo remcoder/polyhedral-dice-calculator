@@ -1,9 +1,8 @@
 Session.setDefault('input', '');
 Session.setDefault('output', '');
 
-var displayReady = new ReactiveVar(false);
 var lcd;
-var maxInputLength; // calculated dynamically: depends on size of canvas, size of matrix pixels, size of bitmap font
+var displayReady = new ReactiveVar(false);
 
 function roll() {
   var input = Session.get('input');
@@ -56,28 +55,26 @@ Template.calculator.events({
 
 
 Meteor.startup(function() {
-  console.log('startup');
+  console.log('initializing');
   $('.calculator-wrapper').css({opacity:1});
   if (Meteor.isCordova)
     navigator.splashscreen.hide();
 
-  //intro();
-  var ctx = $('canvas')[0].getContext('2d');
-  var matrix = new Matrix(ctx, 3, 0);
+  //intro(() => initCalculator({
+  //  font: '/fonts/gohufont/gohufont-11.bdf',
+  //  pixelSize : 3
+  //}, () => displayReady.set(true)) );
 
-  Pxxl.LoadFont('/fonts/gohufont/gohufont-11.bdf', function(font) {
-    console.log('font loaded');
-    lcd = new Lcd(matrix, font);
-    maxInputLength = (lcd.rows - 1) * lcd.columns - 1;
-    console.log('maxInputLength', maxInputLength);
-    displayReady.set(true);
-  });
+  initCalculator({
+    font: '/fonts/gohufont/gohufont-11.bdf',
+    pixelSize : 3
+  }, () => displayReady.set(true));
 
   $(document).on('keydown', function(evt) {
     if (Session.get('rolling')) return;
 
     var button = String.fromCharCode(evt.which);
-    console.log(button);
+    //console.log(button);
 
     // HACK
     if (button == '»') button = '+';
@@ -87,8 +84,22 @@ Meteor.startup(function() {
   });
 });
 
+initCalculator = function (options, callback) {
+  var ctx = $('canvas')[0].getContext('2d');
+  var matrix = new Matrix(ctx, options.pixelSize, options.pixelOffset || 0);
+
+  Pxxl.LoadFont(options.font, function(font) {
+    console.log('font loaded');
+    lcd = new Lcd(matrix, font);
+    if (typeof callback == 'function')
+      callback(lcd);
+  });
+};
+
 
 function pressButton(button) {
+  var maxInputLength = (lcd.rows - 1) * lcd.columns - 1;
+
   var input = Session.get('input');
   if ("d0123456789+-".indexOf(button) > -1 && input.length < maxInputLength)
     Session.set('input', input + button );

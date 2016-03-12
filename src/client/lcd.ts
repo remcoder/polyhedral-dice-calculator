@@ -36,6 +36,12 @@ class Lcd {
     this.matrix.fillRect(x,y,6,9);
   }
 
+    public clearCursor() {
+        var x = this.cursor.column * 6; // hardcoded DWIDTH for now. Pxxl.js 0.4 doesn't support it
+        var y = this.cursor.row * 11;
+        this.matrix.clearRect(x,y,6,9);
+    }
+
   public lineFeed() {
     this.cursor.column = 0;
     this.cursor.row++;
@@ -77,9 +83,15 @@ class Lcd {
   }
 
   private _printChar(c) {
+    if  (c == '\n') {
+        this.lineFeed();
+        return;
+    }
     var pixels = this.font.getPixels(c);
     for(var p=0 ; p<pixels.length ; p++) {
       var pixel = pixels[p];
+      if (c == 'p' ) pixel.y+=2; // HACK: BBoy is not supported by Pxxl.js 0.4
+      if (c == 'y' ) pixel.y+=2; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '-' ) pixel.y-=3; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '=' ) pixel.y-=2; // HACK: BBoy is not supported by Pxxl.js 0.4
       if (c == '+' ) pixel.y-=1; // HACK: BBoy is not supported by Pxxl.js 0.4
