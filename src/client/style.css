@@ -108,6 +108,7 @@ h1 {
 
 button {
     -webkit-appearance: none;
+    -webkit-user-select: none;
 
     font-family: 'Arial';
     width: 21%;
