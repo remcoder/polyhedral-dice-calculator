@@ -54,6 +54,7 @@ h1 {
     padding: 15px;
     opacity: 0;
     /*-webkit-transition: opacity .1s linear;*/
+    height: calc(100% - 30px);
 }
 
 @media screen and (min-device-width: 380px) {
