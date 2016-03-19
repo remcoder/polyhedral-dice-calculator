@@ -1,6 +1,6 @@
 Die = function (s) {
   this.ast = DieExprParser(s);
-}
+};
 
 Die.prototype = {
   _sum: function (f) {

@@ -4,7 +4,7 @@ App.info({
   id: 'nl.remcoder.polyhedral-dice-calculator',
   name: 'RPG Dice Calculator',
   description: 'Roll n-sided dice',
-  version: '1.1.0',
+  version: '1.1.1',
   author: 'Remco Veldkamp',
   email: 'remcoder@gmail.com'
 });
@@ -21,9 +21,3 @@ App.launchScreens({
 // Set PhoneGap/Cordova preferences
 App.setPreference('BackgroundColor', '0xff0000ff');
 App.setPreference('orientation', 'portrait');
-
-// Pass preferences for a particular PhoneGap/Cordova plugin
-App.configurePlugin('com.phonegap.plugins.facebookconnect', {
-  APP_ID: '1234567890',
-  API_KEY: 'supersecretapikey'
-});

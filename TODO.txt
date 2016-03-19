@@ -1,7 +1,18 @@
+migration to webfaction
+-----------------------
+test v1.1 apk now in beta: https://play.google.com/apps/testing/nl.remcoder.polyhedral_dice_calculator
+[done] create script to start node
+
+see if deployments can be made easier with pm2-meteor or similar
+
+other
+-----
+log rolls:
+  - add a page on the root of the website that shows a list of the last 100 rolls.
+  - add (md5 of) device id so we can group usage per user (without identifying)
 
 use css preprocessor to fix browser prefixes
 make ui adapt to slightly different aspect ratios
 make ui stretch to different resolutions (ie Nexus 7)
 make ui responsive to deal with landscape orientation
-
-see if deployments can be made easier with pm2-meteor or similar
+migrate to Meteor 1.3

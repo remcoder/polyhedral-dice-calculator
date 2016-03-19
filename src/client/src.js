@@ -19,20 +19,30 @@ function roll() {
     var d = new Die(input.replace(/ /g, ''));
   }
   catch (e) {
+    Meteor.call('roll', input, e.toString());
     Session.set('output', 'ERROR');
     return;
   }
 
   Session.set('rolling', true);
   Session.set('output', null);
-  delayedOutput(d.Roll(), 6 * 80);
+  var result = d.Roll();
+
+  Meteor.call('roll', input, result);
+  
+  delayedOutput(result, 500);
 }
 
 function delayedOutput(value, delay) {
+  var def = $.Deferred();
+
   Meteor.setTimeout(function() {
     Session.set('rolling', false);
     Session.set('output', value.toString() );
+    def.resolve();
   }, delay);
+
+  return def.promise();
 }
 
 Template.calculator.events({
@@ -56,6 +66,7 @@ Template.calculator.events({
 
 Meteor.startup(function() {
   console.log('initializing');
+
   $('.calculator-wrapper').css({opacity:1});
   if (Meteor.isCordova)
     navigator.splashscreen.hide();
