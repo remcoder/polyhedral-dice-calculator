@@ -1,6 +1,8 @@
 Session.setDefault('input', '');
 Session.setDefault('output', '');
 
+Meteor.disconnect();
+
 var lcd;
 var displayReady = new ReactiveVar(false);
 
@@ -29,7 +31,7 @@ function roll() {
   var result = d.Roll();
 
   Meteor.call('roll', input, result);
-  
+
   delayedOutput(result, 500);
 }
 

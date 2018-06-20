@@ -1,6 +1,6 @@
 migration to webfaction
 -----------------------
-test v1.1 apk now in beta: https://play.google.com/apps/testing/nl.remcoder.polyhedral_dice_calculator
+[done] test v1.1 apk now in beta: https://play.google.com/apps/testing/nl.remcoder.polyhedral_dice_calculator
 [done] create script to start node
 
 see if deployments can be made easier with pm2-meteor or similar
