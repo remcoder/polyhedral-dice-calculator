@@ -4,23 +4,26 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-ecmascript
-underscore
+ecmascript@0.8.0
+underscore@1.0.10
 remcoder:fix-back-button-android
 meteortypescript:compiler
 meteortypescript:typescript-libs
-reactive-var
-standard-minifiers
-meteor-base
-mobile-experience
-mongo
+reactive-var@1.0.11
+meteor-base@1.1.0
+mobile-experience@1.0.4
+mongo@1.1.18
 blaze-html-templates
-session
-jquery
-tracker
-logging
-reload
-random
-ejson
+session@1.1.7
+jquery@1.11.10
+tracker@1.1.3
+logging@1.1.17
+reload@1.1.11
+random@1.0.10
+ejson@1.0.13
 spacebars
-check
+check@1.2.5
+standard-minifier-css
+standard-minifier-js
+shell-server
+dynamic-import
