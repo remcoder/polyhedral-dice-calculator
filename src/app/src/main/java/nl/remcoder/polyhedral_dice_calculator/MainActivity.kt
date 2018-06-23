@@ -4,21 +4,47 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Button
+import com.q42.utils.yieldChildren
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val expression = MutableLiveData<String>().apply { value = "" }
+    private val calc = RPGDiceCalculator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button_0.setOnClickListener { expression.value += "0" }
-        button_clear.setOnClickListener { expression.value = "" }
-
-        expression.observe(this, Observer{
-            input.text = expression.value + "_"
+        calc.expression.observe(this, Observer{
+            input.text = it + "_"
         })
+
+        container.yieldChildren()
+            .filterIsInstance<Button>()
+            .forEach {
+                it.setOnClickListener {
+                    when(it.id) {
+                        R.id.button_0 -> calc.onPressButton(NumberButton(0))
+                        R.id.button_1 -> calc.onPressButton(NumberButton(1))
+                        R.id.button_2 -> calc.onPressButton(NumberButton(2))
+                        R.id.button_3 -> calc.onPressButton(NumberButton(3))
+                        R.id.button_4 -> calc.onPressButton(NumberButton(4))
+                        R.id.button_5 -> calc.onPressButton(NumberButton(5))
+                        R.id.button_6 -> calc.onPressButton(NumberButton(6))
+                        R.id.button_7 -> calc.onPressButton(NumberButton(7))
+                        R.id.button_8 -> calc.onPressButton(NumberButton(8))
+                        R.id.button_9 -> calc.onPressButton(NumberButton(9))
+
+                        R.id.button_d -> calc.onPressButton(DieButton())
+
+                        R.id.button_plus -> calc.onPressButton(OperatorButton(Operator.plus))
+                        R.id.button_minus -> calc.onPressButton(OperatorButton(Operator.minus))
+
+                        R.id.button_clear -> calc.onPressButton(CommandButton(Command.clear))
+                        R.id.button_roll -> calc.onPressButton(CommandButton(Command.roll))
+                    }
+                }
+            }
     }
 }
