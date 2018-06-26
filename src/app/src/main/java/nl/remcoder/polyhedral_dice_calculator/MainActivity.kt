@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
+import android.widget.TextView
 import com.q42.utils.yieldChildren
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,6 +19,13 @@ class MainActivity : AppCompatActivity() {
 
         calc.expression.observe(this, Observer{
             input.text = it + "_"
+        })
+
+        calc.isValidExpression.observe(this, Observer { isValid ->
+            if (isValid == true)
+                (input as TextView).setTextColor(resources.getColor(R.color.black))
+            if (isValid == false)
+                (input as TextView).setTextColor(resources.getColor(R.color.red))
         })
 
         container.yieldChildren()

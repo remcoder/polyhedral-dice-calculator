@@ -11,7 +11,79 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun emptyStringShouldNotBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("")
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun singleDigitShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("1")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun doubleDigitShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("12")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun digitAndDShouldNotBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("1d")
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun numeratorAndDAndDienomenatorShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun AddOperandStateShouldNotBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4+")
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun DiePlusConstantShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4+2")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun AddDieStateInSecondOperandShouldNotBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4+2d")
+        assertEquals(false, result)
+    }
+
+    @Test
+    fun TwoDiesShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4+1d6")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun SubtractionShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("2d4-1d6")
+        assertEquals(true, result)
+    }
+
+    @Test
+    fun ConstantAsFirstOperandShouldBeAccepted() {
+        val parser = DieExpressionParser()
+        val result = parser.recognizes("1+1d6")
+        assertEquals(true, result)
     }
 }

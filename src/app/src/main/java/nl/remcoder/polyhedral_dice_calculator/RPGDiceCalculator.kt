@@ -2,6 +2,7 @@ package nl.remcoder.polyhedral_dice_calculator
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 
 enum class Operator {
     plus,
@@ -19,12 +20,12 @@ data class NumberButton(val number: Int) : Button()
 data class OperatorButton(val operator: Operator) : Button()
 data class CommandButton(val command: Command) : Button()
 
-const val allowedChars = "01234567890d"
-
 class RPGDiceCalculator {
+    private val parser = DieExpressionParser()
     private val _expression = MutableLiveData<String>().apply { value = ""  }
     val expression = _expression as LiveData<String>
 
+    val isValidExpression = Transformations.map(expression, { parser.recognizes(it) })
 
     fun onPressButton(button: Button) {
         when(button) {
@@ -33,17 +34,22 @@ class RPGDiceCalculator {
                 Command.roll -> roll()
             }
             is OperatorButton -> when (button.operator) {
-                Operator.plus -> _expression.value += "+"
-                Operator.minus -> _expression.value += "-"
+                Operator.plus -> tryInput('+')
+                Operator.minus -> tryInput('-')
             }
 
             is NumberButton -> {
                 assert(button.number in 0..9, { "Number should be in [1,9]" })
-                _expression.value += button.number.toString()
+                tryInput(button.number.toString()[0])
             }
 
-            is DieButton -> _expression.value += "d"
+            is DieButton -> tryInput('d')
         }
+    }
+
+    fun tryInput(char: Char) {
+        if (parser.next(char))
+            _expression.value += char
     }
 
     fun clear() {
