@@ -9,7 +9,7 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class ParserRecognitionTest {
     @Test
     fun emptyStringShouldNotBeAccepted() {
         val parser = DieExpressionParser()
@@ -86,4 +86,6 @@ class ExampleUnitTest {
         val result = parser.recognizes("1+1d6")
         assertEquals(true, result)
     }
+
+
 }

@@ -48,7 +48,7 @@ class RPGDiceCalculator {
     }
 
     fun tryInput(char: Char) {
-        if (parser.next(char))
+        if (parser.next("" + char))
             _expression.value += char
     }
 
