@@ -3,6 +3,8 @@ package nl.remcoder.polyhedral_dice_calculator
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
+import com.q42.tolbaaken.Tolbaaken
+import com.q42.tolbaaken.TolbaakenLogger
 
 enum class Operator {
     plus,
@@ -25,7 +27,8 @@ class RPGDiceCalculator {
     private val _expression = MutableLiveData<String>().apply { value = ""  }
     val expression = _expression as LiveData<String>
 
-    val isValidExpression = Transformations.map(expression, { parser.recognizes(it) })
+    val isValidExpression = Transformations.map(expression) { parser.recognizes(it) }
+    val parsedExpression = Transformations.map(expression, parser::parse)
 
     fun onPressButton(button: Button) {
         when(button) {
@@ -39,7 +42,7 @@ class RPGDiceCalculator {
             }
 
             is NumberButton -> {
-                assert(button.number in 0..9, { "Number should be in [1,9]" })
+                assert(button.number in 0..9) { "Number should be in [1,9]" }
                 tryInput(button.number.toString()[0])
             }
 
@@ -48,7 +51,7 @@ class RPGDiceCalculator {
     }
 
     fun tryInput(char: Char) {
-        if (parser.next("" + char))
+        if (parser.recognizes(_expression.value + char, true))
             _expression.value += char
     }
 
@@ -57,6 +60,9 @@ class RPGDiceCalculator {
     }
 
     fun roll() {
+        if(isValidExpression.value != true) return
+
+        Tolbaaken.info { "Rolling!" }
 
     }
 }

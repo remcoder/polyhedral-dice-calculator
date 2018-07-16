@@ -2,7 +2,6 @@ package nl.remcoder.polyhedral_dice_calculator
 
 import com.q42.tolbaaken.Tolbaaken
 
-
 data class State(
         val name: String,
         val accepting: Boolean = false,
@@ -19,11 +18,11 @@ sealed class Expression {
 }
 
 val isDigit = Regex("[0-9]+")
-val isOperator = Regex("(\\+|-)")
+val isOperator = Regex("([+\\-])")
 
 class DieExpressionParser {
-    val initialState = State(name = "Initial")
-    var currentState = initialState
+    private val initialState = State(name = "Initial")
+    private var currentState = initialState
 
     init {
         val addNumerator = State(name = "Add Numerator", accepting = true)
@@ -34,40 +33,19 @@ class DieExpressionParser {
         initialState.transitions.add(Transition("input digit", isDigit, addNumerator))
 
         addNumerator.transitions.add(Transition("input d", Regex("d"), createDie))
-//        addNumerator.transitions.add(Transition("input digit", isDigit, addNumerator))
         addNumerator.transitions.add(Transition("input operator", isOperator, addOperand))
-
-
         createDie.transitions.add(Transition("input dienominator digit", isDigit, dieNominator))
-
-//        dieNominator.transitions.add(Transition("input dienominator digit", isDigit, addNumerator))
         dieNominator.transitions.add(Transition("input operator", isOperator, addOperand))
-
         addOperand.transitions.add(Transition("input additional numerator digit", isDigit, addNumerator))
     }
 
-    fun next(token: String): Boolean {
-        val validTransition = currentState.transitions.find { it.pattern.matches(token) }
-        if (validTransition == null) {
-//            Tolbaaken.info { "Input '$input' not recognized in state '${currentState.name}'" }
-            return false
-        }
-
-
-//        Tolbaaken.info { "Accepted $input, transition: ${validTransition.label}, next state: ${validTransition.nextState} " }
-
-        currentState = validTransition.nextState
-//        Tolbaaken.info { "Terminal state? ${currentState.accepting}" }
-        return true
-    }
-
-    fun recognizes(input: String): Boolean {
+    fun recognizes(input: String, allowPartialMatch: Boolean = false): Boolean {
         currentState = initialState
         for (token in tokenize(input)) {
             currentState = currentState.transitions.find { it.pattern.matches(token.matchedString) }?.nextState
                     ?: return false
         }
-        return currentState.accepting
+        return allowPartialMatch || currentState.accepting
     }
 
     // returns null
@@ -75,7 +53,6 @@ class DieExpressionParser {
         currentState = initialState
 
         var expression: Expression = Expression.Empty
-        var curNode: Expression = expression
 
         for (token in tokenize(input)) {
             val validTransition = currentState.transitions.find { it.pattern.matches(token.matchedString) }
@@ -108,11 +85,7 @@ class DieExpressionParser {
         return expression
     }
 
-    fun addNumerator(expression: Expression, number: Int) {
-
-    }
-
-    fun makeDieExpression(prevExpression: Expression): Expression =
+    private fun makeDieExpression(prevExpression: Expression): Expression =
             when (prevExpression) {
                 Expression.Empty -> TODO()
                 is Expression.Number -> Expression.Die(prevExpression, Expression.Empty)
@@ -124,7 +97,7 @@ class DieExpressionParser {
             }
 
 
-    fun addDieNominatorToDie(prevExpression: Expression, value: Int): Expression =
+    private fun addDieNominatorToDie(prevExpression: Expression, value: Int): Expression =
             when (prevExpression) {
                 Expression.Empty -> throw IllegalStateException("Cannot add die nominator to empty tree. Start a Die expression first")
                 is Expression.Number -> throw IllegalStateException("Cannot add number token after number token")
@@ -138,21 +111,21 @@ class DieExpressionParser {
                 }
             }
 
-    fun makeOperatorExpression(prevExpression: Expression, operator: Operator): Expression.Operator {
+    private fun makeOperatorExpression(prevExpression: Expression, operator: Operator): Expression.Operator {
         return Expression.Operator(prevExpression, operator, Expression.Empty)
     }
 
-    fun addOperandToOperatorExpression(prev: Expression.Operator, value: Int): Expression.Operator {
+    private fun addOperandToOperatorExpression(prev: Expression.Operator, value: Int): Expression.Operator {
         prev.right = Expression.Number(value)
         return prev
     }
 
     data class Token(val name: String, val pattern: Regex)
 
-    val tokens = listOf(
+    private val tokens = listOf(
             Token("digit", isDigit),
             Token("operator", isOperator),
-            Token("d", Regex("d|D"))
+            Token("d", Regex("[dD]"))
     )
 
     // TODO: make sealed class
