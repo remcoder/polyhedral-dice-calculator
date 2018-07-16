@@ -11,11 +11,31 @@ data class State(
 data class Transition(val label: String, val pattern: Regex, val nextState: State)
 
 sealed class Expression {
-    object Empty : Expression()
-    data class Number(val value: Int) : Expression()
-    data class Operator(val left: Expression, val operator: nl.remcoder.polyhedral_dice_calculator.Operator, var right: Expression) : Expression()
-    data class Die(val left: Expression, var right: Expression) : Expression()
+    object Empty : Expression() {
+        override fun toString(): String = ""
+    }
+    data class Number(val value: Int) : Expression() {
+        override fun toString() = "$value"
+    }
+    data class Operator(
+            val left: Expression,
+            val operator: nl.remcoder.polyhedral_dice_calculator.Operator,
+            var right: Expression
+    ) : Expression() {
+        override fun toString(): String = "$left$operator$right"
+    }
+    data class Die(
+            val left: Expression,
+            var right: Expression
+    ) : Expression() {
+        override fun toString(): String = "${left}d$right"
+    }
 }
+
+
+//fun Expression.visitPreOrder(func : (Expression) -> Unit) {
+//    when (this)
+//}
 
 val isDigit = Regex("[0-9]+")
 val isOperator = Regex("([+\\-])")

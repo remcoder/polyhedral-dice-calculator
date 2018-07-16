@@ -8,8 +8,14 @@ import com.q42.tolbaaken.TolbaakenLogger
 
 enum class Operator {
     plus,
-    minus
+    minus;
+
+    override fun toString() : String = when (this) {
+        Operator.plus -> "+"
+        Operator.minus -> "-"
+    }
 }
+
 
 enum class Command {
     clear,
