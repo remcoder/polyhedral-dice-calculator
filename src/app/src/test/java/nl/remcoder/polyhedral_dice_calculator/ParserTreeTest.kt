@@ -112,4 +112,20 @@ class ParserTreeTest {
         ),
                 tree)
     }
+
+    @Test
+    fun add3Dies() {
+        val parser = DieExpressionParser()
+        val tree = parser.parse("1d6+2d8+3")
+        assertEquals(Expression.Operator(
+                Expression.Operator(
+                        Expression.Die(Expression.Number(1), Expression.Number(6)),
+                        Operator.plus,
+                        Expression.Die(Expression.Number(2), Expression.Number(8))
+                ),
+                Operator.plus,
+                Expression.Number(3)
+        ),
+                tree)
+    }
 }
