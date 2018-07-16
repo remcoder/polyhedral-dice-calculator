@@ -25,17 +25,28 @@ sealed class Expression {
         override fun toString(): String = "$left$operator$right"
     }
     data class Die(
-            val left: Expression,
-            var right: Expression
+            val left: Expression.Number,
+            var right: Expression.Number
     ) : Expression() {
         override fun toString(): String = "${left}d$right"
     }
 }
 
-
-//fun Expression.visitPreOrder(func : (Expression) -> Unit) {
-//    when (this)
-//}
+fun Expression.eval() : Int = when (this) {
+    Expression.Empty -> 0
+    is Expression.Number -> value
+    is Expression.Die -> {
+        var result = 0
+        for (i in 0 until left.value) {
+            result += Math.ceil(Math.random() * right.value.toDouble() ).toInt()
+        }
+        result
+    }
+    is Expression.Operator -> when(operator) {
+        Operator.plus -> left.eval() + right.eval()
+        Operator.minus -> left.eval() - right.eval()
+    }
+}
 
 val isDigit = Regex("[0-9]+")
 val isOperator = Regex("([+\\-])")
@@ -108,7 +119,7 @@ class DieExpressionParser {
     private fun makeDieExpression(prevExpression: Expression): Expression =
             when (prevExpression) {
                 Expression.Empty -> TODO()
-                is Expression.Number -> Expression.Die(prevExpression, Expression.Empty)
+                is Expression.Number -> Expression.Die(prevExpression, Expression.Number(0))
                 is Expression.Operator -> {
                     prevExpression.right = makeDieExpression(prevExpression.right)
                     prevExpression

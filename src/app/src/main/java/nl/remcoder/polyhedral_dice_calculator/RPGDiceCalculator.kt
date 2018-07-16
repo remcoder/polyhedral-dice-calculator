@@ -32,6 +32,8 @@ class RPGDiceCalculator {
     private val parser = DieExpressionParser()
     private val _expression = MutableLiveData<String>().apply { value = ""  }
     val expression = _expression as LiveData<String>
+    private val _lastRoll = MutableLiveData<String>().apply { value = "" }
+    val lastRoll = _lastRoll as LiveData<String>
 
     val isValidExpression = Transformations.map(expression) { parser.recognizes(it) }
     val parsedExpression = Transformations.map(expression, parser::parse)
@@ -40,7 +42,7 @@ class RPGDiceCalculator {
         when(button) {
             is CommandButton -> when (button.command) {
                 Command.clear -> clear()
-                Command.roll -> roll()
+                Command.roll -> roll()?.let { _lastRoll.value = "$it" }
             }
             is OperatorButton -> when (button.operator) {
                 Operator.plus -> tryInput('+')
@@ -63,12 +65,13 @@ class RPGDiceCalculator {
 
     fun clear() {
         _expression.value = ""
+        _lastRoll.value = ""
     }
 
-    fun roll() {
-        if(isValidExpression.value != true) return
+    fun roll() : Int? {
 
         Tolbaaken.info { "Rolling!" }
-
+        val input = expression.value ?: return null
+        return parser.parse(input)?.eval()
     }
 }
