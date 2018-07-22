@@ -1,12 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/dark_grey</item>
+        <item name="colorPrimaryDark">@color/dark_grey</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:buttonStyle">@style/CalculatorButton</item>
+
+    </style>
+
+    <style name="actionbarStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/black</item>
     </style>
 
     <style name="CalculatorButton" parent="Base.Widget.AppCompat.Button">
