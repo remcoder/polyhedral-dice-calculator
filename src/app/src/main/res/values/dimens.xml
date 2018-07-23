@@ -1,6 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="calculator_button_width">60dp</dimen>
-    <dimen name="button_vspacing">0dp</dimen>
-    <dimen name="button_height">40dp</dimen>
 </resources>
