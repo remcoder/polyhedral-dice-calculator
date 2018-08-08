@@ -21,14 +21,13 @@ class MainActivity : AppCompatActivity() {
             input.text = it + "_"
         })
 
-        calc.isValidExpression.observe(this, Observer { isValid ->
-            if (isValid == true)
-                (input as TextView).setTextColor(resources.getColor(R.color.black))
-            if (isValid == false)
-                (input as TextView).setTextColor(resources.getColor(R.color.red))
-        })
-
         calc.lastRoll.observe(this, Observer { it?.let { result.text = "> $it" } })
+//        calc.isValidExpression.observe(this, Observer { isValid ->
+//            if (isValid == true)
+//                (input as TextView).setTextColor(resources.getColor(R.color.black))
+//            if (isValid == false)
+//                (input as TextView).setTextColor(resources.getColor(R.color.red))
+//        })
 
         buttons.yieldChildren()
             .filterIsInstance<Button>()
