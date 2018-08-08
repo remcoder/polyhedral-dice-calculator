@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 (input as TextView).setTextColor(resources.getColor(R.color.red))
         })
 
-        calc.lastRoll.observe(this, Observer { it?.let { result.text = ">$it" } })
+        calc.lastRoll.observe(this, Observer { it?.let { result.text = "> $it" } })
 
         buttons.yieldChildren()
             .filterIsInstance<Button>()
