@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         calc.expression.observe(this, Observer{
-            input.text = it + "_"
+            input.text = "${it}_"
+                    .replace("+", " + ")
+                    .replace("-", " - ")
         })
 
         calc.lastRoll.observe(this, Observer { it?.let { result.text = "> $it" } })
