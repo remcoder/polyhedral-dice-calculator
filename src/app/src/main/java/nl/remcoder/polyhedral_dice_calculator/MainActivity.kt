@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         calc.lastRoll.observe(this, Observer { it?.let { result.text = ">$it" } })
 
-        container.yieldChildren()
+        buttons.yieldChildren()
             .filterIsInstance<Button>()
             .forEach {
                 it.setOnClickListener {
