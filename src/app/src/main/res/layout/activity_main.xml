@@ -42,7 +42,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:lines="2"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/result"
         app:layout_constraintEnd_toEndOf="@id/lcd"
         app:layout_constraintStart_toStartOf="@id/lcd"
