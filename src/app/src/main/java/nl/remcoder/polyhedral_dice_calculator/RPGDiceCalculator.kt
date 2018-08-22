@@ -3,6 +3,7 @@ package nl.remcoder.polyhedral_dice_calculator
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations
+import android.arch.lifecycle.ViewModel
 import com.q42.tolbaaken.Tolbaaken
 import com.q42.tolbaaken.TolbaakenLogger
 
@@ -28,7 +29,7 @@ data class NumberButton(val number: Int) : Button()
 data class OperatorButton(val operator: Operator) : Button()
 data class CommandButton(val command: Command) : Button()
 
-class RPGDiceCalculator {
+class RPGDiceCalculator : ViewModel() {
     private val parser = DieExpressionParser()
     private val _expression = MutableLiveData<String>().apply { value = ""  }
     val expression = _expression as LiveData<String>

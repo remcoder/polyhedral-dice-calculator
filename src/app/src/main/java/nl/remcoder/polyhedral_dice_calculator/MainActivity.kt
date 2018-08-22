@@ -8,14 +8,19 @@ import android.widget.Button
 import android.widget.TextView
 import com.q42.utils.yieldChildren
 import kotlinx.android.synthetic.main.activity_main.*
+import android.arch.lifecycle.ViewModelProviders
+
+
 
 class MainActivity : AppCompatActivity() {
 
-    private val calc = RPGDiceCalculator()
+    private lateinit var calc : RPGDiceCalculator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        calc = ViewModelProviders.of(this).get(RPGDiceCalculator::class.java)
 
         calc.expression.observe(this, Observer{
             input.text = "${it}_"
